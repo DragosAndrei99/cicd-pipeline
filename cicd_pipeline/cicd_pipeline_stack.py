@@ -1,7 +1,7 @@
 import aws_cdk as cdk
 from constructs import Construct
-from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
-from cicd_pipeline.cicd_pipeline_app_stage import MyPipelineAppStage
+from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep, ManualApprovalStep
+from cicd_pipeline.my_lambda_app.cicd_pipeline_app_stage import MyPipelineAppStage
 
 class MyPipelineStack(cdk.Stack):
 
@@ -21,5 +21,7 @@ class MyPipelineStack(cdk.Stack):
                         )
                     )
         
-        pipeline.add_stage(MyPipelineAppStage(self, "TestStage",
+        custom_stage = pipeline.add_stage(MyPipelineAppStage(self, "CustomStage",
             env=cdk.Environment(account="576973527573", region="us-east-1")))
+        
+        custom_stage.add_post(ManualApprovalStep('approval'))
