@@ -25,3 +25,7 @@ class MyPipelineStack(cdk.Stack):
         # adding the stage to our pipeline
         lambda_function = pipeline.add_stage(LambdaAppStage(self, "CustomStage",
             env=cdk.Environment(account="576973527573", region="us-east-1")))
+        
+        lambda_function.add_post(ShellStep("validate", input=source,
+            commands=["pytest"],
+        ))
