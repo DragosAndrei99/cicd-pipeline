@@ -16,4 +16,4 @@ def test_lambda_handler():
 
     assert len(functions) == 1
     assert functions[0]['Properties']['MemorySize'] == 1024
-    assert functions[0]['Properties']['Timeout'] == 30
+    assert functions[0]['Properties']['Timeout'] == 50
