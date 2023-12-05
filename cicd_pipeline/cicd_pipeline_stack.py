@@ -29,5 +29,5 @@ class MyPipelineStack(cdk.Stack):
 
         # adding test step to be ran before any of the stacks in this stage
         lambda_function.add_pre(ShellStep("ValidateStack", input=source,
-                                          commands=["python -m pip install pytest", "pytest"],
+                                          commands=["python -m pip install -r requirements.txt", "python -m pip install pytest", "pytest"],
                                           ))
