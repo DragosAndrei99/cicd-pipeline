@@ -1,14 +1,14 @@
-from aws_cdk import core
+import aws_cdk as cdk
 from cicd_pipeline.cicd_pipeline_lambda_stack import MyLambdaStack
 
 
 def test_lambda_handler():
 
     # GIVEN
-    app = core.App()
+    app = cdk.App()
 
     # WHEN
-    MyLambdaStack(app, 'Stack', 'UnitTestTag')
+    MyLambdaStack(app, 'Stack')
 
     # THEN
     template = app.synth().get_stack_by_name('Stack').template
