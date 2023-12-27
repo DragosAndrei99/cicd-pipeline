@@ -70,7 +70,7 @@ class ApiGWHttpApiLambdaDynamodbStack(Stack):
             "ApiHandler",
             function_name="apigw_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
-            code=lambda_.Code.from_asset("lambda_handler"),
+            code=lambda_.Code.from_asset("app"),
             handler="index.handler",
             vpc=vpc,
             vpc_subnets=ec2.SubnetSelection(

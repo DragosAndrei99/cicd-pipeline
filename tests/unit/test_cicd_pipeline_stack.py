@@ -1,5 +1,5 @@
 import aws_cdk as cdk
-from stacks.cicd_pipeline_app_stack import ApiGWHttpApiLambdaDynamodbStack
+from infrastructure.cicd_pipeline_app_stack import ApiGWHttpApiLambdaDynamodbStack
 
 
 def test_app_handler():
