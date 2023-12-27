@@ -1,5 +1,5 @@
 import aws_cdk as cdk
-from infrastructure.app_stack import ApiGWHttpApiLambdaDynamodbStack
+from infrastructure.component import Backend
 
 
 def test_app_handler():
@@ -8,7 +8,7 @@ def test_app_handler():
     app = cdk.App()
 
     # WHEN
-    ApiGWHttpApiLambdaDynamodbStack(app, 'Stack')
+    Backend(app, 'Stack')
 
     # THEN
     template = app.synth().get_stack_by_name('Stack').template
