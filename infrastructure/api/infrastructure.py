@@ -56,9 +56,9 @@ class API(Construct):
             ]
         )
 
-        # Connect lambda to GET method
+        # Connect lambda to POST method
         resource.add_method(
-            'GET', lambda_integration,
+            'POST', lambda_integration,
             method_responses=[
                 apigw_.MethodResponse(
                     status_code="200",

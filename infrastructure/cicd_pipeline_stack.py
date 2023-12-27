@@ -43,3 +43,4 @@ class MyPipelineStack(cdk.Stack):
         # add manual approval step 
         # add notification ?
         # return the api gw url
+        # add e2e tests using bash with curl command
