@@ -1,6 +1,6 @@
 import aws_cdk as cdk
 from constructs import Construct
-from stacks.cicd_pipeline_lambda_stack import ApiGWHttpApiLambdaDynamodbStack
+from stacks.cicd_pipeline_app_stack import ApiGWHttpApiLambdaDynamodbStack
 
 # adding a new custom stage and defining the stack inside it
 class ApiGWHttpApiLambdaDynamodbStage(cdk.Stage):

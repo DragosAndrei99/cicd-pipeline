@@ -2,8 +2,6 @@ import aws_cdk as cdk
 from constructs import Construct
 from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
 from stacks.cicd_pipeline_app_stage import ApiGWHttpApiLambdaDynamodbStage
-import aws_cdk.aws_iam as iam
-
 
 class MyPipelineStack(cdk.Stack):
 
@@ -24,13 +22,20 @@ class MyPipelineStack(cdk.Stack):
                                                           "cdk synth"]
                                                 )
                                         )
-        # adding the stage to our pipeline
-        lambda_function = pipeline.add_stage(ApiGWHttpApiLambdaDynamodbStage(self, "ApiGWHttpApiLambdaDynamodbStage",
+        # adding the app stage to our pipeline
+        app = pipeline.add_stage(ApiGWHttpApiLambdaDynamodbStage(self, "ApiGWHttpApiLambdaDynamodbStage",
                                                             env=cdk.Environment(account="576973527573", region="us-east-1")))
 
-        # adding test step to be ran before any of the stacks in this stage
-        lambda_function.add_pre(ShellStep("ValidateStack", input=source,
+        # adding test step to be ran before any of the stacks in this stage - validating resources in the stack
+        app.add_pre(ShellStep("ValidateStack", input=source,
                                           commands=["python -m pip install -r requirements.txt",
                                                     "python -m pip install pytest",
-                                                    "python -m pytest"],
+                                                    "python -m pytest tests/unit/test_cicd_pipeline_stack.py"],
+                                          ))
+        
+        # unit tests
+        app.add_pre(ShellStep("Unit Tests", input=source,
+                                          commands=["python -m pip install -r requirements.txt",
+                                                    "python -m pip install pytest",
+                                                    "python -m pytest tests/unit/test_app.py"],
                                           ))
