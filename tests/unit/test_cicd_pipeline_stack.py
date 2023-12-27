@@ -1,5 +1,5 @@
 import aws_cdk as cdk
-from cicd_pipeline.cicd_pipeline_lambda_stack import MyLambdaStack
+from stacks.cicd_pipeline_lambda_stack import MyLambdaStack
 
 
 def test_lambda_handler():

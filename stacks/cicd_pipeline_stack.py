@@ -1,7 +1,7 @@
 import aws_cdk as cdk
 from constructs import Construct
 from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
-from cicd_pipeline.cicd_pipeline_app_stage import LambdaAppStage
+from stacks.cicd_pipeline_app_stage import ApiGWHttpApiLambdaDynamodbStage
 
 
 class MyPipelineStack(cdk.Stack):
@@ -24,7 +24,7 @@ class MyPipelineStack(cdk.Stack):
                                                 )
                                 )
         # adding the stage to our pipeline
-        lambda_function = pipeline.add_stage(LambdaAppStage(self, "CustomStage",
+        lambda_function = pipeline.add_stage(ApiGWHttpApiLambdaDynamodbStage(self, "ApiGWHttpApiLambdaDynamodbStage",
                                                             env=cdk.Environment(account="576973527573", region="us-east-1")))
 
         # adding test step to be ran before any of the stacks in this stage
