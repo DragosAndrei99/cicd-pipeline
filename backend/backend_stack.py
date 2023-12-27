@@ -4,8 +4,8 @@ from typing import Any
 import aws_cdk as cdk
 from constructs import Construct
 
-from infrastructure.api.infrastructure import API
-from infrastructure.database.infrastructure import Database
+from backend.api.infrastructure import API
+from backend.database.infrastructure import Database
 
 
 class Backend(cdk.Stack):

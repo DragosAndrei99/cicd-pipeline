@@ -1,7 +1,13 @@
 import aws_cdk as cdk
 from constructs import Construct
 from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
-from infrastructure.cicd_pipeline_app_stage import ApiGWHttpApiLambdaDynamodbStage
+from backend.backend_stack import Backend
+
+class ApiGWHttpApiLambdaDynamodbStage(cdk.Stage):
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+        super().__init__(scope, construct_id, **kwargs)
+
+        BackendStack = Backend(self, "BackendStack")
 
 class MyPipelineStack(cdk.Stack):
 

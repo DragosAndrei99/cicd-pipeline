@@ -1,5 +1,5 @@
 import aws_cdk as cdk
-from infrastructure.component import Backend
+from backend.backend_stack import Backend
 
 
 def test_app_handler():

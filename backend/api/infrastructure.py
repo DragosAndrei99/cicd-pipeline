@@ -18,7 +18,7 @@ class API(Construct):
             function_name="apigateway_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
-            code=lambda_.Code.from_asset("app"),
+            code=lambda_.Code.from_asset("backend/api/runtime"),
             handler="index.handler",
             vpc=vpc,
             vpc_subnets=ec2.SubnetSelection(
@@ -34,11 +34,11 @@ class API(Construct):
             "ApiGateway",
         )
 
-        # Add resource to API Gateway and enable CORS
+        # Add /example endpoint to API Gateway and enable CORS
         resource = api_gw.root.add_resource(
             'example',
             default_cors_preflight_options=apigw_.CorsOptions(
-                allow_methods=['GET', 'OPTIONS'],
+                allow_methods=['POST', 'OPTIONS'],
                 allow_origins=apigw_.Cors.ALL_ORIGINS)
         )
 

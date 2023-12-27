@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import aws_cdk as cdk
-from infrastructure.cicd_pipeline_stack import MyPipelineStack
+from backend.cicd_pipeline_stack import MyPipelineStack
 
 app = cdk.App()
 MyPipelineStack(app, "MyPipelineStack",
