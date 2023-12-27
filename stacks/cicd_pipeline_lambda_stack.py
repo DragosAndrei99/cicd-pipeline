@@ -64,12 +64,12 @@ class ApiGWHttpApiLambdaDynamodbStack(Stack):
         )
 
         # Create the Lambda function to receive the request
-        api_hanlder = lambda_.Function(
+        api_handler = lambda_.Function(
             self,
             "ApiHandler",
             function_name="apigw_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
-            code=lambda_.Code.from_asset("lambda/apigw-handler"),
+            code=lambda_.Code.from_asset("lambda"),
             handler="index.handler",
             vpc=vpc,
             vpc_subnets=ec2.SubnetSelection(
@@ -80,12 +80,12 @@ class ApiGWHttpApiLambdaDynamodbStack(Stack):
         )
 
         # grant permission to lambda to write to demo table
-        demo_table.grant_write_data(api_hanlder)
-        api_hanlder.add_environment("TABLE_NAME", demo_table.table_name)
+        demo_table.grant_write_data(api_handler)
+        api_handler.add_environment("TABLE_NAME", demo_table.table_name)
 
         # Create API Gateway
         apigw_.LambdaRestApi(
             self,
             "Endpoint",
-            handler=api_hanlder,
+            handler=api_handler,
         )
