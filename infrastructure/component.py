@@ -35,7 +35,6 @@ class Backend(cdk.Stack):
 
         database.dynamodb_table.grant_read_write_data(api.lambda_function)
         api.api_handler.vpc = database.vpc
-        
         self.api_endpoint = cdk.CfnOutput(
             self,
             "APIEndpoint",
