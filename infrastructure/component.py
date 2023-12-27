@@ -4,8 +4,8 @@ from typing import Any
 import aws_cdk as cdk
 from constructs import Construct
 
-from api.infrastructure import API
-from database.infrastructure import Database
+from infrastructure.api.infrastructure import API
+from infrastructure.database.infrastructure import Database
 
 
 class Backend(cdk.Stack):
@@ -27,7 +27,7 @@ class Backend(cdk.Stack):
             dynamodb_table_name=database.dynamodb_table.table_name,
         )
 
-        database.dynamodb_table.grant_read_write_data(api.lambda_function)
+        database.dynamodb_table.grant_read_write_data(api.api_handler)
         api.api_handler.vpc = database.vpc
         self.api_endpoint = cdk.CfnOutput(
             self,
