@@ -8,8 +8,8 @@ from aws_cdk import (
 from constructs import Construct
 
 class API(Construct):
-     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
-        super().__init__(scope, construct_id, **kwargs)
+     def __init__(self, scope: Construct, construct_id: str,*, dynamodb_table_name: str,) -> None:
+        super().__init__(scope, construct_id)
 
         # Create the Lambda function to receive the request
         self.api_handler = lambda_.Function(
@@ -17,6 +17,7 @@ class API(Construct):
             "ApiHandler",
             function_name="apigw_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
+            environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
             code=lambda_.Code.from_asset("app"),
             handler="index.handler",
             vpc_subnets=ec2.SubnetSelection(
