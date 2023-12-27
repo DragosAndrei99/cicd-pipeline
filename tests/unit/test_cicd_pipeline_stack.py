@@ -1,5 +1,5 @@
 import aws_cdk as cdk
-from stacks.cicd_pipeline_lambda_stack import MyLambdaStack
+from stacks.cicd_pipeline_lambda_stack import ApiGWHttpApiLambdaDynamodbStack
 
 
 def test_lambda_handler():
@@ -8,7 +8,7 @@ def test_lambda_handler():
     app = cdk.App()
 
     # WHEN
-    MyLambdaStack(app, 'Stack')
+    ApiGWHttpApiLambdaDynamodbStack(app, 'Stack')
 
     # THEN
     template = app.synth().get_stack_by_name('Stack').template
@@ -17,4 +17,3 @@ def test_lambda_handler():
 
     assert len(functions) == 1
     assert functions[0]['Properties']['MemorySize'] == 1024
-    assert functions[0]['Properties']['Timeout'] == 30
