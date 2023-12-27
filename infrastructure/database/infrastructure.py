@@ -25,7 +25,7 @@ class Database(Construct):
                 )
             ],
         )
-        
+
         # Create VPC endpoint
         dynamo_db_endpoint = cdk.aws_ec2.GatewayVpcEndpoint(
             self,
@@ -34,11 +34,12 @@ class Database(Construct):
             vpc=self.vpc,
         )
 
-        # This allows to customize the endpoint policy
+        # Customize the endpoint policy
         dynamo_db_endpoint.add_to_policy(
-            cdk.aws_iam.PolicyStatement(  # Restrict to listing and describing tables
+            cdk.aws_iam.PolicyStatement(
                 principals=[cdk.aws_iam.AnyPrincipal()],
-                actions=[                "dynamodb:DescribeStream",
+                actions=[
+                "dynamodb:DescribeStream",
                 "dynamodb:DescribeTable",
                 "dynamodb:Get*",
                 "dynamodb:Query",
@@ -51,6 +52,7 @@ class Database(Construct):
             )
         )
 
+        # Create DynamoDB table
         self.dynamodb_table = dynamodb.Table(
             self,
             "DynamoDBTable",

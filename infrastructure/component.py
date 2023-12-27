@@ -21,6 +21,7 @@ class Backend(cdk.Stack):
             self,
             "Database",
         )
+
         api = API(
             self,
             "API",

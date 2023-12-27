@@ -39,3 +39,7 @@ class MyPipelineStack(cdk.Stack):
                                                     "python -m pip install pytest",
                                                     "python -m pytest tests/unit/test_app.py"],
                                           ))
+        
+        # add manual approval step 
+        # add notification ?
+        # return the api gw url
