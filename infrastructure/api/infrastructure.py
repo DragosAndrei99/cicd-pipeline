@@ -15,7 +15,7 @@ class API(Construct):
         self.api_handler = lambda_.Function(
             self,
             "ApiHandler",
-            function_name="apigw_handler",
+            function_name="apigateway_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
             code=lambda_.Code.from_asset("app"),
