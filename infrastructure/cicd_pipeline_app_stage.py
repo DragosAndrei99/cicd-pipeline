@@ -7,4 +7,4 @@ class ApiGWHttpApiLambdaDynamodbStage(cdk.Stage):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        BackendStack = Backend(self, "ApiGWHttpApiLambdaDynamodbStack")
+        BackendStack = Backend(self, "BackendStack")

@@ -5,9 +5,9 @@ from constructs import Construct
 
 class Database(Construct):
     def __init__(
-        self, scope: Construct, id_: str, *, dynamodb_billing_mode: dynamodb.BillingMode
+        self, scope: Construct, id_: str, **kwargs
     ):
-        super().__init__(scope, id_)
+        super().__init__(scope, id_, **kwargs)
 
         partition_key = dynamodb.Attribute(
             name="id", type=dynamodb.AttributeType.STRING
@@ -54,7 +54,6 @@ class Database(Construct):
         self.dynamodb_table = dynamodb.Table(
             self,
             "DynamoDBTable",
-            billing_mode=dynamodb_billing_mode,
             partition_key=partition_key,
             removal_policy=cdk.RemovalPolicy.DESTROY,
         )
