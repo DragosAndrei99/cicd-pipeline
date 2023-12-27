@@ -11,7 +11,7 @@ dynamodb_client = boto3.client("dynamodb")
 
 
 def handler(event, context):
-    table = os.environ.get("TABLE_NAME")
+    table = os.environ.get("DYNAMODB_TABLE_NAME")
     logging.info(f"## Loaded table name from environemt variable DDB_TABLE: {table}")
     if event["body"]:
         item = json.loads(event["body"])
