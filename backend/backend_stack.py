@@ -28,12 +28,7 @@ class Backend(cdk.Stack):
             dynamodb_table_name=database.dynamodb_table.table_name,
             vpc=database.vpc
         )
-
-        database.dynamodb_table.grant_read_write_data(api.api_handler)
-
-        # self.api_endpoint = cdk.CfnOutput(
-        #     self,
-        #     "APIEndpoint",
-        #     # API doesn't disable create_default_stage, hence URL will be defined
-        #     value=api.api_gateway_http_api.url,  # type: ignore
-        # )
+        database.dynamodb_table.grant_read_data(api.scan_lambda_handler)
+        database.dynamodb_table.grant_write_data(api.post_lambda_handler)
+        database.dynamodb_table.grant_write_data(api.update_lambda_handler)
+        database.dynamodb_table.grant_write_data(api.delete_lambda_handler)
