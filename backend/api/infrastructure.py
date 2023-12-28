@@ -3,18 +3,17 @@ from aws_cdk import (
     aws_apigateway as apigw_,
     aws_ec2 as ec2,
     Duration,
-    CfnOutput
 )
 from constructs import Construct
 
 class API(Construct):
-     def __init__(self, scope: Construct, construct_id: str,*, dynamodb_table_name: str, vpc) -> None:
+     def __init__(self, scope: Construct, construct_id: str,*, dynamodb_table_name: str, vpc, env: str) -> None:
         super().__init__(scope, construct_id)
 
         # Lambda function - GET
         self.scan_lambda_handler = lambda_.Function(
             self,
-            "ScanHandler",
+            f"ScanHandler{env}",
             function_name="scan_lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
@@ -31,7 +30,7 @@ class API(Construct):
         # Lambda function - POST
         self.post_lambda_handler = lambda_.Function(
             self,
-            "PostHandler",
+            f"PostHandler{env}",
             function_name="post_lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
@@ -48,7 +47,7 @@ class API(Construct):
         # Lambda function - PUT
         self.update_lambda_handler = lambda_.Function(
             self,
-            "PutHandler",
+            f"PutHandler{env}",
             function_name="update_lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
@@ -65,7 +64,7 @@ class API(Construct):
         # Lambda function - DELETE
         self.delete_lambda_handler = lambda_.Function(
             self,
-            "DeleteHandler",
+            f"DeleteHandler{env}",
             function_name="delete_lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
@@ -82,7 +81,7 @@ class API(Construct):
         # Create API Gateway
         api_gw = apigw_.RestApi(
             self,
-            "ApiGateway",
+            f"ApiGateway_{env}",
         )
 
         # Add /posts endpoint to API Gateway and enable CORS
@@ -197,5 +196,3 @@ class API(Construct):
                 )
             ]
         )
-
-        CfnOutput(self, "apiUrl", value=api_gw.url)

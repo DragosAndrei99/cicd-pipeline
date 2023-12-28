@@ -1,8 +1,11 @@
 from http import HTTPStatus
 import requests
 import json
+import sys
 
-api_gw_url = "https://p6vcd8nfv9.execute-api.us-east-1.amazonaws.com/prod/posts"
+api_gw_url = sys.argv[1]
+
+print(api_gw_url)
 
 def test_get_handler():
     response = requests.get(api_gw_url)

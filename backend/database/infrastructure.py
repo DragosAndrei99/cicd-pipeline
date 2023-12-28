@@ -5,7 +5,7 @@ from constructs import Construct
 
 class Database(Construct):
     def __init__(
-        self, scope: Construct, id_: str, **kwargs
+        self, scope: Construct, id_: str, env:str, **kwargs
     ):
         super().__init__(scope, id_, **kwargs)
 
@@ -16,11 +16,11 @@ class Database(Construct):
         # VPC
         self.vpc = cdk.aws_ec2.Vpc(
             self,
-            "Ingress",
+            f"Ingress_{env}",
             cidr="10.1.0.0/16",
             subnet_configuration=[
                 cdk.aws_ec2.SubnetConfiguration(
-                    name="Private-Subnet", subnet_type=cdk.aws_ec2.SubnetType.PRIVATE_ISOLATED,
+                    name=f"Private-Subnet_{env}", subnet_type=cdk.aws_ec2.SubnetType.PRIVATE_ISOLATED,
                     cidr_mask=24
                 )
             ],
@@ -29,7 +29,7 @@ class Database(Construct):
         # Create VPC endpoint
         dynamo_db_endpoint = cdk.aws_ec2.GatewayVpcEndpoint(
             self,
-            "DynamoDBVpce",
+            f"DynamoDBVpce_{env}",
             service=cdk.aws_ec2.GatewayVpcEndpointAwsService.DYNAMODB,
             vpc=self.vpc,
         )
@@ -55,7 +55,7 @@ class Database(Construct):
         # Create DynamoDB table
         self.dynamodb_table = dynamodb.Table(
             self,
-            "DynamoDBTable",
+            f"DynamoDBTable_{env}",
             partition_key=partition_key,
             removal_policy=cdk.RemovalPolicy.DESTROY,
         )
