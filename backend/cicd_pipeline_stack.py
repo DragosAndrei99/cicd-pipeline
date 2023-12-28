@@ -54,7 +54,8 @@ class MyPipelineStack(cdk.Stack):
 
         # e2e tests for API
         dev.add_post(ShellStep('E2E-Tests', commands=["python -m pip install -r requirements.txt",
-                                                      f"python tests/e2e/e2e_tests.py"]))
+                                                      "python -m pip install requests",
+                                                      "python tests/e2e/e2e_tests.py"]))
 
         # PROD stage
         pipeline.add_stage(prod_stack, pre=[ManualApprovalStep("Promote to PROD")])
