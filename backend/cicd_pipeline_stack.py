@@ -1,6 +1,6 @@
 import aws_cdk as cdk
 from constructs import Construct
-from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
+from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep, ManualApprovalStep
 from backend.backend_stack import Backend
 
 class ApiGWHttpApiLambdaDynamodbStage(cdk.Stage):
@@ -28,25 +28,29 @@ class MyPipelineStack(cdk.Stack):
                                                           "cdk synth"]
                                                 )
                                         )
-        # adding the app stage to our pipeline
-        app = pipeline.add_stage(ApiGWHttpApiLambdaDynamodbStage(self, "ApiGWHttpApiLambdaDynamodbStage",
+        # DEV stage
+        dev = pipeline.add_stage(ApiGWHttpApiLambdaDynamodbStage(self, "DEV",
                                                             env=cdk.Environment(account="576973527573", region="us-east-1")))
 
         # unit tests for infrastructure
-        app.add_pre(ShellStep("Validate-Stack", input=source,
+        dev.add_pre(ShellStep("Validate-Stack", input=source,
                                           commands=["python -m pip install -r requirements.txt",
                                                     "python -m pip install pytest",
                                                     "python -m pytest tests/unit/test_cicd_pipeline_stack.py"],
                                           ))
 
         # unit tests for application code
-        app.add_pre(ShellStep("Unit-Tests", input=source,
+        dev.add_pre(ShellStep("Unit-Tests", input=source,
                                           commands=["python -m pip install -r requirements.txt",
                                                     "python -m pip install pytest",
                                                     "python -m pytest tests/unit/test_app.py"],
                                           ))
 
-        # add manual approval step 
-        # add notification ?
-        # return the api gw url
-        # add e2e tests using bash with curl command
+        # e2e tests for API
+        dev.add_post(ShellStep('E2E-Tests', commands=["python -m pip install -r requirements.txt",
+                                                      "python tests/e2e/e2e_tests.py"]))
+
+        # PROD stage
+        pipeline.add_stage(ApiGWHttpApiLambdaDynamodbStage(self, "PROD",
+                                                            env=cdk.Environment(account="576973527573", region="us-east-1")),
+                                                            pre=[ManualApprovalStep("Promote to PROD")])
