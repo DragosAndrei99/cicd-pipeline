@@ -15,7 +15,7 @@ def test_post_handler():
     body = {
         "item_data": {
             "id": "12345",
-            "title": "Test2"
+            "title": "Test21"
         }
     }
 
