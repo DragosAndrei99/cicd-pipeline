@@ -36,4 +36,4 @@ class Backend(cdk.Stack):
         database.dynamodb_table.grant_write_data(api.update_lambda_handler)
         database.dynamodb_table.grant_write_data(api.delete_lambda_handler)
 
-        self.api_gw_url = cdk.CfnOutput(self, "apiUrl", value=api.url)
+        self.api_gw_url = api.url
