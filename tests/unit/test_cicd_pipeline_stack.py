@@ -8,7 +8,7 @@ def test_app_handler():
     app = cdk.App()
 
     # WHEN
-    Backend(app, 'Stack')
+    Backend(app, 'Stack', environment="DEV")
 
     # THEN
     template = app.synth().get_stack_by_name('Stack').template
