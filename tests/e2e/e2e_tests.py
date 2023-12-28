@@ -1,9 +1,8 @@
 from http import HTTPStatus
 import requests
 import json
-import sys
 
-api_gw_url = sys.argv[1]
+api_gw_url = "https://2xgxenr4wg.execute-api.us-east-1.amazonaws.com/prod/posts"
 
 print(api_gw_url)
 

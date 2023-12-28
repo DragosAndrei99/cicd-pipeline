@@ -84,8 +84,6 @@ class API(Construct):
             f"ApiGateway_{env}",
         )
 
-        self.url = api_gw.url
-
         # Add /posts endpoint to API Gateway and enable CORS
         resource = api_gw.root.add_resource(
             'posts',
