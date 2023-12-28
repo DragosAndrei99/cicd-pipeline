@@ -14,7 +14,7 @@ class API(Construct):
         self.scan_lambda_handler = lambda_.Function(
             self,
             f"ScanHandler{env}",
-            function_name="scan_lambda_handler",
+            function_name=f"scan_lambda_handler_{env}",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
             code=lambda_.Code.from_asset("backend/api/runtime"),
@@ -31,7 +31,7 @@ class API(Construct):
         self.post_lambda_handler = lambda_.Function(
             self,
             f"PostHandler{env}",
-            function_name="post_lambda_handler",
+            function_name=f"post_lambda_handler_{env}",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
             code=lambda_.Code.from_asset("backend/api/runtime"),
@@ -48,7 +48,7 @@ class API(Construct):
         self.update_lambda_handler = lambda_.Function(
             self,
             f"PutHandler{env}",
-            function_name="update_lambda_handler",
+            function_name=f"update_lambda_handler_{env}",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
             code=lambda_.Code.from_asset("backend/api/runtime"),
@@ -65,7 +65,7 @@ class API(Construct):
         self.delete_lambda_handler = lambda_.Function(
             self,
             f"DeleteHandler{env}",
-            function_name="delete_lambda_handler",
+            function_name=f"delete_lambda_handler_{env}",
             runtime=lambda_.Runtime.PYTHON_3_9,
             environment={"DYNAMODB_TABLE_NAME": dynamodb_table_name},
             code=lambda_.Code.from_asset("backend/api/runtime"),
