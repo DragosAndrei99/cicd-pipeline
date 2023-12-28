@@ -3,7 +3,7 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 
-def get_items_dynamodb(event, context):
+def handler(event, context):
     dynamodb_table_name = os.environ.get("DYNAMODB_TABLE_NAME")
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(dynamodb_table_name)

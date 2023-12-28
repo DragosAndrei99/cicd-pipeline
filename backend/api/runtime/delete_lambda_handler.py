@@ -2,7 +2,7 @@ import os
 import boto3
 from botocore.exceptions import ClientError
 
-def lambda_handler(event, context):
+def handler(event, context):
     dynamodb_table_name = os.environ.get("DYNAMODB_TABLE_NAME")
     item_key = event.get('item_key')
 
