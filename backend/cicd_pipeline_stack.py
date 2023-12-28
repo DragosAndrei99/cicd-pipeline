@@ -38,14 +38,14 @@ class MyPipelineStack(cdk.Stack):
                                                     "python -m pip install pytest",
                                                     "python -m pytest tests/unit/test_cicd_pipeline_stack.py"],
                                           ))
-        
+
         # unit tests for application code
         app.add_pre(ShellStep("Unit-Tests", input=source,
                                           commands=["python -m pip install -r requirements.txt",
                                                     "python -m pip install pytest",
                                                     "python -m pytest tests/unit/test_app.py"],
                                           ))
-        
+
         # add manual approval step 
         # add notification ?
         # return the api gw url

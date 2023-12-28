@@ -15,5 +15,5 @@ def test_app_handler():
     functions = [resource for resource in template['Resources'].values()
                  if resource['Type'] == 'AWS::Lambda::Function']
 
-    assert len(functions) == 1
+    assert len(functions) == 4
     assert functions[0]['Properties']['MemorySize'] == 1024
