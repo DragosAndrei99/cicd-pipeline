@@ -45,3 +45,14 @@ To deploy the CDK stack and set up the pipeline, run the following commands:
 
 ```bash
 cdk deploy
+
+## Architecture
+
+![alt text](AWS_cdk_pipeline_architecture.png)
+
+
+## Legend
+
+![alt text](AWS_architecture_legend.JPG)
+
+
