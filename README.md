@@ -54,6 +54,6 @@ cdk deploy
 
 ## Legend
 
-![alt text](AWS_architecture_legend.JPG)
+![alt text](AWS_architecture_legend.png)
 
 
