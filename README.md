@@ -45,6 +45,7 @@ To deploy the CDK stack and set up the pipeline, run the following commands:
 
 ```bash
 cdk deploy
+```
 
 ## Architecture
 
